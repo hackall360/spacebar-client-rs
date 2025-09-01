@@ -7,6 +7,7 @@ use tauri_plugin_notification::NotificationExt;
 
 pub mod controllers;
 pub mod stores;
+pub mod net;
 
 #[cfg(desktop)]
 mod tray;
