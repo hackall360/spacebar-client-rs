@@ -5,6 +5,8 @@ use tauri_plugin_autostart::MacosLauncher;
 use tauri_plugin_log::{Target, TargetKind, WEBVIEW_TARGET};
 use tauri_plugin_notification::NotificationExt;
 
+pub mod controllers;
+
 #[cfg(desktop)]
 mod tray;
 mod updater;
