@@ -6,6 +6,7 @@ use tauri_plugin_log::{Target, TargetKind, WEBVIEW_TARGET};
 use tauri_plugin_notification::NotificationExt;
 
 pub mod controllers;
+pub mod stores;
 
 #[cfg(desktop)]
 mod tray;
