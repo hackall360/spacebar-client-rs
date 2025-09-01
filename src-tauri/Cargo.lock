@@ -111,6 +111,7 @@ dependencies = [
  "dioxus-ssr",
  "futures-util",
  "log",
+ "regex",
  "reqwest",
  "serde",
  "serde_json",
