@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use crate::ui::hooks::floating::{use_floating, FloatingState};
+use crate::ui::hooks::floating::use_floating;
 
 #[derive(Props)]
 pub struct FloatingProviderProps<'a> {

@@ -27,8 +27,8 @@ pub fn use_context_menu(cx: &ScopeState) -> ContextMenuController {
     });
 
     ContextMenuController {
-        is_open,
-        props,
+        is_open: is_open.clone(),
+        props: props.clone(),
         open,
         close,
     }

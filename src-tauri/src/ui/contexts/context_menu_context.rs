@@ -26,5 +26,7 @@ pub struct ContextMenuContext {
 }
 
 pub fn use_context_menu_context(cx: &ScopeState) -> ContextMenuContext {
-    use_context::<ContextMenuContext>(cx).expect("ContextMenuContext not provided")
+    use_context::<ContextMenuContext>(cx)
+        .expect("ContextMenuContext not provided")
+        .clone()
 }

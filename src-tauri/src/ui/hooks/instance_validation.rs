@@ -21,6 +21,6 @@ pub fn use_instance_validation(cx: &ScopeState) -> InstanceValidation {
 
     InstanceValidation {
         handle_instance_change,
-        is_checking_instance,
+        is_checking_instance: is_checking_instance.clone(),
     }
 }

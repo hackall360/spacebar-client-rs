@@ -44,10 +44,9 @@ impl RestClient {
 
     pub fn set_token(&mut self, token: Option<&str>) {
         if let Some(token) = token {
-            self.headers.insert(
-                "Authorization",
-                HeaderValue::from_str(token).unwrap_or_default(),
-            );
+            if let Ok(value) = HeaderValue::from_str(token) {
+                self.headers.insert("Authorization", value);
+            }
         } else {
             self.headers.remove("Authorization");
         }
