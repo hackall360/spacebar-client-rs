@@ -1,7 +1,7 @@
 {
 	"identifier": "base",
 	"description": "base",
-	"windows": ["main", "splashscreen"],
+        "windows": ["main"],
 	"permissions": [
 		"core:path:default",
 		"core:event:default",

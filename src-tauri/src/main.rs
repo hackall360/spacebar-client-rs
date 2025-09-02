@@ -2,13 +2,14 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod controllers;
+mod stores;
 mod ui;
 
 fn main() {
     use dioxus::prelude::VirtualDom;
     use tauri::WebviewUrl;
 
-    let mut dom = VirtualDom::new(ui::app::App);
+    let dom = VirtualDom::new(ui::app::App);
     let html = dioxus_ssr::render(&dom);
     let data_url = format!("data:text/html,{}", urlencoding::encode(&html));
 

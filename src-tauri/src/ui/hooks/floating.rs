@@ -13,5 +13,5 @@ pub fn use_floating(cx: &ScopeState, initial_open: bool) -> FloatingState {
     let open_clone = open.clone();
     let set_open = Rc::new(move |v: bool| open_clone.set(v));
 
-    FloatingState { open, set_open }
+    FloatingState { open: open.clone(), set_open }
 }
