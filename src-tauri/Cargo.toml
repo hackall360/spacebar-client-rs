@@ -1,3 +1,6 @@
+[workspace]
+members = ["core"]
+
 [package]
 name = "app"
 version = "0.0.0"
@@ -37,6 +40,7 @@ tokio = { version = "1", features = ["sync", "rt-multi-thread", "macros", "net",
 tokio-tungstenite = "0.21"
 futures-util = "0.3"
 regex = "1"
+spacebar-core = { path = "core" }
 
 [target.'cfg(target_os = "linux")'.dependencies]
 reqwest = { version = "0.12.12", default-features = false, features = [

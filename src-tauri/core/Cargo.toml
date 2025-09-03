@@ -1,0 +1,21 @@
+[package]
+name = "spacebar-core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+url = "2.5.4"
+log = "0.4.22"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["sync", "rt-multi-thread", "macros", "net", "time"] }
+tokio-tungstenite = "0.21"
+futures-util = "0.3"
+regex = "1"
+dioxus = { version = "0.4", features = ["hooks", "macro"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+reqwest = { version = "0.12.12", default-features = false, features = ["json", "rustls-tls", "multipart"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+reqwest = { version = "0.12.12", default-features = false, features = ["json", "native-tls", "multipart"] }

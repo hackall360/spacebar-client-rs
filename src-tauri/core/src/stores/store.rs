@@ -8,8 +8,8 @@ use tokio::sync::{broadcast, Mutex};
 /// the broadcast channel allowing other parts of the application to react to
 /// the update.
 pub struct Store<S, E> {
-    pub state: Arc<Mutex<S>>,           // shared mutable state
-    pub tx: broadcast::Sender<E>,       // event broadcaster
+    pub state: Arc<Mutex<S>>,     // shared mutable state
+    pub tx: broadcast::Sender<E>, // event broadcaster
 }
 
 impl<S: Default, E: Clone> Store<S, E> {

@@ -4,16 +4,12 @@ use tauri_plugin_autostart::MacosLauncher;
 use tauri_plugin_log::{Target, TargetKind, WEBVIEW_TARGET};
 use tauri_plugin_notification::NotificationExt;
 
-pub mod controllers;
-pub mod stores;
-pub mod utils;
-pub mod net;
+pub use spacebar_core::{controllers, net, stores, utils};
 
 #[cfg(desktop)]
 mod tray;
 #[cfg(desktop)]
 mod updater;
-
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

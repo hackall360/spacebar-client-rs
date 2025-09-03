@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 
 use super::components::{ErrorBoundary, Loader};
 use super::pages::AppPage;
-use crate::controllers::{BannerRenderer, ModalRenderer};
+use spacebar_core::controllers::{BannerRenderer, ModalRenderer};
 
 pub fn App(cx: Scope) -> Element {
     cx.render(rsx! {

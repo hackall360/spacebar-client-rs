@@ -1,8 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-mod controllers;
-mod stores;
 mod ui;
 
 fn main() {
@@ -15,9 +13,13 @@ fn main() {
 
     tauri::Builder::default()
         .setup(move |app| {
-            tauri::WebviewWindowBuilder::new(app, "main", WebviewUrl::External(data_url.parse().unwrap()))
-                .build()
-                .unwrap();
+            tauri::WebviewWindowBuilder::new(
+                app,
+                "main",
+                WebviewUrl::External(data_url.parse().unwrap()),
+            )
+            .build()
+            .unwrap();
             Ok(())
         })
         .run(tauri::generate_context!())

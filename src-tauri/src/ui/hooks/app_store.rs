@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use crate::stores::app_store::AppStore;
+use spacebar_core::stores::app_store::AppStore;
 
 /// Access the global [`AppStore`].
 pub fn use_app_store(cx: &ScopeState) -> &UseSharedState<AppStore> {

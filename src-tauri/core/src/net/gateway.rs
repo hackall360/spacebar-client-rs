@@ -2,7 +2,7 @@ use futures_util::{SinkExt, StreamExt};
 use serde_json::json;
 use tokio::time::{sleep, Duration};
 use tokio_tungstenite::connect_async;
-use tokio_tungstenite::tungstenite::{Message, protocol::frame::coding::CloseCode};
+use tokio_tungstenite::tungstenite::{protocol::frame::coding::CloseCode, Message};
 use url::Url;
 
 use log::{debug, info, warn};
@@ -17,7 +17,11 @@ pub struct Gateway {
 
 impl Gateway {
     pub fn new(url: Url, token: String) -> Self {
-        Self { url, token, reconnect_delay: Duration::from_secs(10) }
+        Self {
+            url,
+            token,
+            reconnect_delay: Duration::from_secs(10),
+        }
     }
 
     /// Start the gateway connection. This will keep trying to reconnect
@@ -29,18 +33,14 @@ impl Gateway {
                     if !reconnect {
                         break;
                     }
-                    warn!(
-                        "gateway closed; reconnecting in {:?}",
-                        self.reconnect_delay
-                    );
+                    warn!("gateway closed; reconnecting in {:?}", self.reconnect_delay);
                     sleep(self.reconnect_delay).await;
                     self.reconnect_delay *= 2;
                 }
                 Err(e) => {
                     warn!(
                         "gateway error: {:?}; reconnecting in {:?}",
-                        e,
-                        self.reconnect_delay
+                        e, self.reconnect_delay
                     );
                     sleep(self.reconnect_delay).await;
                     self.reconnect_delay *= 2;
