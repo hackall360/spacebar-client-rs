@@ -1,6 +1,9 @@
-use std::sync::{atomic::{AtomicUsize, Ordering}, Mutex, OnceLock};
-use tokio::sync::watch;
 use dioxus::prelude::*;
+use std::sync::{
+    atomic::{AtomicUsize, Ordering},
+    Mutex, OnceLock,
+};
+use tokio::sync::watch;
 
 #[derive(Clone)]
 pub enum BannerType {
@@ -22,7 +25,11 @@ pub struct BannerController {
 impl BannerController {
     fn new() -> Self {
         let (tx, _rx) = watch::channel(Vec::new());
-        Self { stack: Mutex::new(Vec::new()), tx, counter: AtomicUsize::new(0) }
+        Self {
+            stack: Mutex::new(Vec::new()),
+            tx,
+            counter: AtomicUsize::new(0),
+        }
     }
 
     pub fn subscribe(&self) -> watch::Receiver<Vec<Banner>> {

@@ -1,6 +1,9 @@
-use std::sync::{atomic::{AtomicUsize, Ordering}, Mutex, OnceLock};
-use tokio::sync::watch;
 use dioxus::prelude::*;
+use std::sync::{
+    atomic::{AtomicUsize, Ordering},
+    Mutex, OnceLock,
+};
+use tokio::sync::watch;
 
 #[derive(Clone)]
 pub struct Modal {
@@ -17,7 +20,11 @@ pub struct ModalController {
 impl ModalController {
     fn new() -> Self {
         let (tx, _rx) = watch::channel(Vec::new());
-        Self { stack: Mutex::new(Vec::new()), tx, counter: AtomicUsize::new(0) }
+        Self {
+            stack: Mutex::new(Vec::new()),
+            tx,
+            counter: AtomicUsize::new(0),
+        }
     }
 
     pub fn subscribe(&self) -> watch::Receiver<Vec<Modal>> {
@@ -32,7 +39,10 @@ impl ModalController {
     pub fn push(&self, modal_type: impl Into<String>) {
         let key = self.counter.fetch_add(1, Ordering::SeqCst) + 1;
         let mut stack = self.stack.lock().unwrap();
-        stack.push(Modal { key, modal_type: modal_type.into() });
+        stack.push(Modal {
+            key,
+            modal_type: modal_type.into(),
+        });
         drop(stack);
         self.notify();
     }

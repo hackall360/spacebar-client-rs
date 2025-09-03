@@ -1,20 +1,27 @@
-use std::rc::Rc;
 use dioxus::prelude::*;
-use crate::stores::objects::{
-    channel::Channel,
-    guild::Guild,
-    guild_member::GuildMember,
-    message::Message,
-    user::User,
+use spacebar_core::stores::objects::{
+    channel::Channel, guild::Guild, guild_member::GuildMember, message::Message, user::User,
 };
+use std::rc::Rc;
 
 #[derive(Clone)]
 pub enum ContextMenuProps {
-    User { user: User, member: Option<GuildMember> },
-    Message { message: Message },
-    Channel { channel: Channel },
-    ChannelMention { channel: Channel },
-    Guild { guild: Guild },
+    User {
+        user: User,
+        member: Option<GuildMember>,
+    },
+    Message {
+        message: Message,
+    },
+    Channel {
+        channel: Channel,
+    },
+    ChannelMention {
+        channel: Channel,
+    },
+    Guild {
+        guild: Guild,
+    },
 }
 
 #[derive(Clone)]

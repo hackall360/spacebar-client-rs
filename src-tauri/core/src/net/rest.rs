@@ -1,5 +1,8 @@
-use reqwest::{Client, header::{HeaderMap, HeaderValue, USER_AGENT, ACCEPT}};
-use serde::{de::DeserializeOwned, Serialize, Deserialize};
+use reqwest::{
+    header::{HeaderMap, HeaderValue, ACCEPT, USER_AGENT},
+    Client,
+};
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use url::Url;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -39,7 +42,11 @@ impl RestClient {
     pub fn new(route_settings: RouteSettings) -> Self {
         let client = Client::new();
         let headers = default_headers();
-        Self { route_settings, client, headers }
+        Self {
+            route_settings,
+            client,
+            headers,
+        }
     }
 
     pub fn set_token(&mut self, token: Option<&str>) {
@@ -57,7 +64,10 @@ impl RestClient {
             Ok(settings) => Ok(settings),
             Err(_) => {
                 let client = Client::new();
-                let well_known_url = format!("{}/.well-known/spacebar", url.origin().ascii_serialization());
+                let well_known_url = format!(
+                    "{}/.well-known/spacebar",
+                    url.origin().ascii_serialization()
+                );
                 let res: serde_json::Value = client
                     .get(&well_known_url)
                     .headers(default_headers())
@@ -72,7 +82,10 @@ impl RestClient {
         }
     }
 
-    pub async fn get_instance_domains(url: &Url, knownas: &Url) -> Result<RouteSettings, reqwest::Error> {
+    pub async fn get_instance_domains(
+        url: &Url,
+        knownas: &Url,
+    ) -> Result<RouteSettings, reqwest::Error> {
         let mut base = url.clone();
         if !base.path().contains("api") {
             base.path_segments_mut().expect("valid url").push("api");
@@ -110,9 +123,18 @@ impl RestClient {
         url
     }
 
-    pub async fn get<T: DeserializeOwned>(&self, path: &str, query: &[(&str, &str)]) -> Result<T, reqwest::Error> {
+    pub async fn get<T: DeserializeOwned>(
+        &self,
+        path: &str,
+        query: &[(&str, &str)],
+    ) -> Result<T, reqwest::Error> {
         let url = self.make_api_url(path, query);
-        let res = self.client.get(url).headers(self.headers.clone()).send().await?;
+        let res = self
+            .client
+            .get(url)
+            .headers(self.headers.clone())
+            .send()
+            .await?;
         res.error_for_status()?.json::<T>().await
     }
 
@@ -181,7 +203,11 @@ impl RestClient {
         headers: &[(&str, &str)],
     ) -> Result<T, reqwest::Error> {
         let url = self.make_api_url(path, query);
-        let mut req = self.client.post(url).headers(self.headers.clone()).multipart(form);
+        let mut req = self
+            .client
+            .post(url)
+            .headers(self.headers.clone())
+            .multipart(form);
         for (k, v) in headers {
             req = req.header(*k, *v);
         }
