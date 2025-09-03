@@ -11,6 +11,7 @@ pub mod net;
 
 #[cfg(desktop)]
 mod tray;
+#[cfg(desktop)]
 mod updater;
 
 
@@ -66,9 +67,15 @@ pub fn run() {
                             .show()
                             .unwrap();
                     }));
-
+                #[cfg(target_os = "macos")]
                 let _ = app_handle.plugin(tauri_plugin_autostart::init(
                     MacosLauncher::LaunchAgent,
+                    Some(vec![]),
+                ));
+
+                #[cfg(any(target_os = "linux", target_os = "windows"))]
+                let _ = app_handle.plugin(tauri_plugin_autostart::init(
+                    MacosLauncher::default(),
                     Some(vec![]),
                 ));
 
@@ -85,12 +92,21 @@ pub fn run() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![
-            updater::check_for_updates,
-            updater::download_update,
-            updater::install_update,
-            updater::clear_update_cache
-        ])
+        .invoke_handler({
+            #[cfg(desktop)]
+            {
+                tauri::generate_handler![
+                    updater::check_for_updates,
+                    updater::download_update,
+                    updater::install_update,
+                    updater::clear_update_cache
+                ]
+            }
+            #[cfg(not(desktop))]
+            {
+                tauri::generate_handler![]
+            }
+        })
         .build(context)
         .expect("error while running tauri application");
 

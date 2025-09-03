@@ -9,11 +9,15 @@ pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
     let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<String>)?;
     let menu1 = Menu::with_items(app, &[&branding, &quit_i])?;
 
+    // Use left click to open the tray menu on Linux where the right click
+    // behaviour can be inconsistent across desktop environments.
+    let menu_on_left_click = cfg!(target_os = "linux");
+
     let _ = TrayIconBuilder::with_id("main")
         .tooltip("Spacebar")
         .icon(app.default_window_icon().unwrap().clone())
         .menu(&menu1)
-        .menu_on_left_click(false)
+        .menu_on_left_click(menu_on_left_click)
         .on_menu_event(move |app, event| match event.id.as_ref() {
             "quit" => {
                 app.exit(0);
