@@ -1,13 +1,17 @@
 {
-	"app": {
-                "windows": [
-                        {
-                                "fullscreen": false,
-                                "resizable": true,
-                                "title": "Spacebar",
-                                "maximized": true,
-                                "label": "main"
-                        }
-                ]
-	}
+    "app": {
+        "windows": [
+            {
+                "fullscreen": false,
+                "resizable": true,
+                "title": "Spacebar",
+                "maximized": true,
+                "label": "main"
+            }
+        ]
+    },
+    "bundle": {
+        "targets": ["deb", "rpm", "appimage"],
+        "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png"]
+    }
 }
