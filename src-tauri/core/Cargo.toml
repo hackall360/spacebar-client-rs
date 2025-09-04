@@ -3,6 +3,9 @@ name = "spacebar-core"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+with-go = []
+
 [dependencies]
 url = "2.5.4"
 log = "0.4.22"
@@ -23,3 +26,6 @@ reqwest = { version = "0.12.12", default-features = false, features = ["json", "
 
 [dev-dependencies]
 httpmock = "0.7"
+
+[build-dependencies]
+cbindgen = "0.24"
